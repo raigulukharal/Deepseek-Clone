@@ -28,7 +28,7 @@ Welcome to my fully functional and responsive **DeepSeek Clone** project. Built 
 ![Home](./screenshots/home.png)
 
 ### 💬 Prompt / AI Response Page  
-![Prompt](./screenshots/promp.png)
+![Prompt](./screenshots/prompt.png)
 
 ---
 
