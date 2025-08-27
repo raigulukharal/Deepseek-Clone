@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
 import { Prompt } from "../model/prompt.model.js";
-
-// Node 18+ ke liye built-in fetch available hai
 dotenv.config();
 
 export const sendPrompt = async (req, res) => {
@@ -44,8 +42,6 @@ export const sendPrompt = async (req, res) => {
     }
 
     const aiMessage = data.choices[0].message.content;
-
-    // Save AI response to DB
     const savedAiPrompt = await Prompt.create({
       userId,
       role: "assistant",
@@ -77,8 +73,6 @@ export const getTodayPrompt = async (req, res) => {
 
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
-
-    // Get FIRST prompt of today by this user
     const firstPrompt = await Prompt.findOne({
       userId,
       createdAt: { $gte: startOfDay, $lte: endOfDay },

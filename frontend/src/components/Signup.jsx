@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import { authAPI } from '../services/authAPI';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Signup = () => {
         password: '',
     });
 
-    const [loading, setLoading] = useState(false); // 🔹 Loading state
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,18 +20,15 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // 🔹 Start loading
+        setLoading(true);
+        
         try {
-            const response = await axios.post(
-                "http://localhost:4000/api/v1/user/signup",
-                {
-                    firstname: formData.firstname,
-                    lastname: formData.lastname,
-                    email: formData.email,
-                    password: formData.password,
-                },
-                { withCredentials: true }
-            );
+            const response = await authAPI.signup({
+                firstname: formData.firstname,
+                lastname: formData.lastname,
+                email: formData.email,
+                password: formData.password,
+            });
 
             console.log("Signup Response:", response.data);
             toast.success(response.data.message);
@@ -40,73 +37,77 @@ const Signup = () => {
             console.error("Signup Error:", error.response?.data || error.message);
             toast.error(error.response?.data?.message || "Signup Failed");
         } finally {
-            setLoading(false); // 🔹 Stop loading
+            setLoading(false);
         }
     };
 
     return (
-        <div className="bg-black h-screen flex justify-center items-center">
+        <div className="bg-black min-h-screen flex justify-center items-center p-4">
             <Toaster position="top-center" reverseOrder={false} />
             <form
                 onSubmit={handleSubmit}
-                className="bg-gray-800 p-4 rounded-lg text-white w-auto"
+                className="bg-gray-800 p-6 rounded-lg text-white w-full max-w-md"
             >
-                <h2 className="text-center text-xl font-bold mb-4">Signup</h2>
+                <h2 className="text-center text-2xl font-bold mb-6">Signup</h2>
 
                 <div className="mb-4">
                     <input
-                        placeholder='firstname'
+                        placeholder='First Name'
                         type="text"
                         name="firstname"
                         value={formData.firstname}
                         onChange={handleChange}
-                        className="w-full p-2 rounded border border-gray-600 bg-gray-700"
+                        className="w-full p-3 rounded border border-gray-600 bg-gray-700 text-white placeholder-gray-400"
+                        required
                     />
                 </div>
                 <div className="mb-4">
                     <input
-                        placeholder='lastname'
+                        placeholder='Last Name'
                         type="text"
                         name="lastname"
                         value={formData.lastname}
                         onChange={handleChange}
-                        className="w-full p-2 rounded border border-gray-600 bg-gray-700"
+                        className="w-full p-3 rounded border border-gray-600 bg-gray-700 text-white placeholder-gray-400"
+                        required
                     />
                 </div>
                 <div className="mb-4">
                     <input
-                        placeholder='email'
+                        placeholder='Email'
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full p-2 rounded border border-gray-600 bg-gray-700"
+                        className="w-full p-3 rounded border border-gray-600 bg-gray-700 text-white placeholder-gray-400"
+                        required
                     />
                 </div>
-                <div className="mb-4">
+                <div className="mb-6">
                     <input
-                        placeholder='password'
+                        placeholder='Password'
                         type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className="w-full p-2 rounded border border-gray-600 bg-gray-700"
+                        className="w-full p-3 rounded border border-gray-600 bg-gray-700 text-white placeholder-gray-400"
+                        required
                     />
                 </div>
 
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full py-2 rounded text-white ${loading ? 'bg-gray-600' : 'bg-blue-600 hover:bg-blue-700'}`}
+                    className={`w-full py-3 rounded text-white font-semibold ${loading ? 'bg-gray-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 transition-colors'}`}
                 >
                     {loading ? 'Signing up...' : 'Signup'}
                 </button>
 
-                <p className="text-center text-sm mt-4">
+                <p className="text-center text-sm mt-6 text-gray-400">
                     By clicking Signup, you agree to our Terms, Privacy Policy, and Cookie Policy.
                 </p>
-                <p className="text-center text-sm mt-2 flex justify-between px-3">
-                    Already have an account?{' '}
+                <p className="text-center text-sm mt-4 flex justify-center gap-1">
+                    <span className="text-gray-400">Already have an account?</span>
                     <a href="/login" className="text-blue-500 hover:underline">
                         Login
                     </a>

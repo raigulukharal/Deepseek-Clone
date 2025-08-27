@@ -7,7 +7,7 @@ import promptRouter from './routes/prompt.route.js'
 import userRouter from './routes/user.route.js'
 
 dotenv.config()
-const PORT=process.env.PORT || 4002
+const PORT=process.env.PORT
 const app = express()
 
 
