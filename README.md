@@ -6,7 +6,8 @@ Welcome to my fully functional and responsive **DeepSeek Clone** project. Built 
 
 ## 🌐 Live Demo
 
-- 🚀 **Frontend (React App):** [deepseek-client.netlify.app](https://deepseek-client.netlify.app/)  
+
+- 🚀 **Frontend (React App):** <a href="https://deepseek-client.netlify.app/" target="_blank">deepseek-client.netlify.app</a> 
 
 ---
 
