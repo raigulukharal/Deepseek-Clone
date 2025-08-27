@@ -4,6 +4,12 @@ Welcome to my fully functional and responsive **DeepSeek Clone** project. Built 
 
 ---
 
+## 🌐 Live Demo
+
+- 🚀 **Frontend (React App):** [deepseek-client.netlify.app](https://deepseek-client.netlify.app/)  
+
+---
+
 ## 🚀 Features
 
 - 🔐 **User Authentication** (Signup/Login)
@@ -46,7 +52,3 @@ Welcome to my fully functional and responsive **DeepSeek Clone** project. Built 
 - MongoDB (via Mongoose)
 - OpenAI API Integration
 - JWT (Authentication)
-
----
-
-
